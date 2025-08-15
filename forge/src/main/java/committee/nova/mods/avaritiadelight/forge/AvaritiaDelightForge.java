@@ -20,4 +20,5 @@ public final class AvaritiaDelightForge {
     public static void onInit(FMLCommonSetupEvent event) {
         event.enqueueWork(AvaritiaDelight::process);
     }
+
 }
