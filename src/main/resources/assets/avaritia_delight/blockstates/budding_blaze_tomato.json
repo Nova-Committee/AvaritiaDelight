@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "avaritia_delight:block/budding_blaze_tomatoes_stage_0"
+    },
+    "age=1": {
+      "model": "avaritia_delight:block/budding_blaze_tomatoes_stage_1"
+    },
+    "age=2": {
+      "model": "avaritia_delight:block/budding_blaze_tomatoes_stage_2"
+    },
+    "age=3": {
+      "model": "avaritia_delight:block/budding_blaze_tomatoes_stage_3"
+    },
+    "age=4": {
+      "model": "avaritia_delight:block/budding_blaze_tomatoes_stage_3"
+    }
+  }
+}

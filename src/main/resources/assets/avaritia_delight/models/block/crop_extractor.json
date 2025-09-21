@@ -1,0 +1,14 @@
+
+{
+  "render_type": "cutout",
+  "parent": "block/cube",
+  "textures": {
+    "north": "avaritia_delight:block/crop_extractor",
+    "east": "avaritia_delight:block/crop_extractor_left",
+    "south": "avaritia_delight:block/crop_extractor_behind",
+    "west": "avaritia_delight:block/crop_extractor_right",
+    "up": "avaritia_delight:block/crop_extractor_top",
+    "down": "avaritia:block/machine/collector/frame",
+    "particle": "avaritia_delight:block/crop_extractor_top"
+  }
+}

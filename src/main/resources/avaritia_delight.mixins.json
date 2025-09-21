@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "package": "committee.nova.mods.avaritiadelight.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "minVersion": "0.8",
+  "refmap": "avaritia_delight.refmap.json",
+  "client": [
+  ],
+  "mixins": [
+    "CuttingBoardBlockEntityMixin",
+    "LivingEntityMixin",
+    "ShapedRecipeAccessor"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
