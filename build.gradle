@@ -1,22 +1,7 @@
-buildscript {
-    repositories {
-        // These repositories are only for Gradle plugins, put any other repositories in the repository block further below
-        maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
-    }
-}
-
 plugins {
-    id 'eclipse'
-    id 'idea'
-    id 'net.minecraftforge.gradle' version '[6.0.16,6.2)'
-    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
+    id "net.neoforged.moddev.legacyforge"
+    id "maven-publish"
 }
-
-apply plugin: 'org.spongepowered.mixin'
 
 group = mod_group_id
 version = mod_version
@@ -29,44 +14,70 @@ java {
     toolchain.languageVersion = JavaLanguageVersion.of(17)
 }
 
-minecraft {
-    mappings channel: mapping_channel, version: mapping_version
-    copyIdeResources = true
-    runs {
-        configureEach {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'info'
-            mods {
-                "${mod_id}" {
-                    source sourceSets.main
-                }
-            }
-        }
+Map<String, String> commonSystemProperties = [
+        'forge.logging.console.level': 'info',
+        "mixin.debug.export"         : "false",
+        "mixin.config"               : "${mod_id}.mixins.json"
+]
 
-        client {
-            property 'forge.enabledGameTestNamespaces', mod_id
-        }
-
-        server {
-            property 'forge.enabledGameTestNamespaces', mod_id
-            args '--nogui'
-        }
-
-        gameTestServer {
-            property 'forge.enabledGameTestNamespaces', mod_id
-        }
-
-        data {
-            workingDirectory project.file('run-data')
-            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+legacyForge {
+    version = "${minecraft_version}-${forge_version}"
+    parchment {
+        minecraftVersion = "${minecraft_version}"
+        mappingsVersion = "${mapping_version}"
+    }
+//    validateAccessTransformers = true
+//    accessTransformers = [
+//            "src/main/resources/META-INF/accesstransformer.cfg"
+//    ]
+    mods {
+        "${mod_id}" {
+            sourceSet sourceSets.main
         }
     }
+
+
+    runs {
+        configureEach {
+            gameDirectory = project.file('run')
+            systemProperties.putAll(commonSystemProperties)
+            jvmArguments.addAll(
+                    "--add-opens", "java.base/sun.security.util=ALL-UNNAMED",
+                    "--add-opens", "java.base/java.util.jar=ALL-UNNAMED"
+            )
+        }
+        client {
+            client()
+        }
+        server {
+            server()
+        }
+        data {
+            data()
+            programArguments.addAll(
+                    '--mod', "${mod_id}",
+                    '--all',
+                    '--output', file('src/generated/resources/').absolutePath,
+                    '--existing', file('src/main/resources').absolutePath
+            )
+        }
+    }
+
+    addModdingDependenciesTo(sourceSets.test)
 }
 
 mixin {
-    add sourceSets.main, "${mod_id}.refmap.json"
+    var refmap = add sourceSets.main, "${mod_id}.refmap.json"
+    jar.from refmap
     config "${mod_id}.mixins.json"
+}
+
+jar {
+    manifest {
+        attributes([
+                "MixinConfigs": "${mod_id}.mixins.json"
+        ])
+    }
 }
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
@@ -82,30 +93,26 @@ repositories {
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     implementation(annotationProcessor("io.github.llamalad7:mixinextras-common:0.2.0"))
-    implementation(jarJar("io.github.llamalad7:mixinextras-forge:0.2.0")) {
-        jarJar.ranged(it, "[0.2.0,)")
-    }
+    implementation("io.github.llamalad7:mixinextras-forge:0.2.0")
 
-    implementation fg.deobf("maven.modrinth:re-avaritia:$rootProject.avaritia_forge_version")
-    implementation fg.deobf("maven.modrinth:farmers-delight:$rootProject.delight_forge_version")
+    modImplementation("maven.modrinth:re-avaritia:$rootProject.avaritia_forge_version")
+    modImplementation("maven.modrinth:farmers-delight:$rootProject.delight_forge_version")
 
-    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
-    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}")
-    compileOnly fg.deobf("dev.emi:emi-forge:${emi_version}:api")
+    modCompileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
+    modCompileOnly("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}")
+    modCompileOnly("dev.emi:emi-forge:${emi_version}:api")
     if (recipe_viewer == "jei")
-        runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
+        modRuntimeOnly("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
     else if (recipe_viewer == "emi")
-        runtimeOnly fg.deobf("dev.emi:emi-forge:${emi_version}")
+        modRuntimeOnly("dev.emi:emi-forge:${emi_version}")
     else
         throw new IllegalArgumentException("Unknown recipe viewer: " + recipe_viewer)
 
-    runtimeOnly fg.deobf("maven.modrinth:jupiter:ZmYt4jjp")
-    runtimeOnly fg.deobf("com.iafenvoy.integration:integration-forge:0.2")
-    runtimeOnly fg.deobf("maven.modrinth:tooltips-reforged:xpFeqLCi")
+    modRuntimeOnly("maven.modrinth:jupiter:ZmYt4jjp")
+    modRuntimeOnly("com.iafenvoy.integration:integration-forge:0.2")
+    modRuntimeOnly("maven.modrinth:tooltips-reforged:xpFeqLCi")
 }
 
 tasks.named('processResources', ProcessResources).configure {
@@ -122,11 +129,9 @@ tasks.named('processResources', ProcessResources).configure {
 tasks.named('jar', Jar).configure {
     manifest {
         attributes(["Specification-Title"     : mod_id,
-                    "Specification-Vendor"    : mod_authors,
                     "Specification-Version"   : "1", // We are version 1 of ourselves
                     "Implementation-Title"    : project.name,
                     "Implementation-Version"  : project.jar.archiveVersion,
-                    "Implementation-Vendor"   : mod_authors,
                     "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")])
     }
 
