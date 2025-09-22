@@ -36,8 +36,8 @@ public class ExtremeCookingPotShapelessRecipe implements ExtremeCookingPotRecipe
         this.output = output;
         if (!container.isEmpty())
             this.container = container;
-        else if (output.getItem().getCraftingRemainingItem() != null)
-            this.container = output.getItem().getCraftingRemainingItem().getDefaultInstance();
+        else if (output.hasCraftingRemainingItem())
+            this.container = output.getCraftingRemainingItem();
         else
             this.container = ItemStack.EMPTY;
         this.cookTime = cookTime;

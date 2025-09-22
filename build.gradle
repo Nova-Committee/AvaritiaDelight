@@ -36,7 +36,7 @@ minecraft {
         configureEach {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'debug'
+            property 'forge.logging.console.level', 'info'
             mods {
                 "${mod_id}" {
                     source sourceSets.main
@@ -78,6 +78,7 @@ repositories {
     maven { url = "https://maven.blamejared.com/" }
     maven { url = "https://modmaven.dev" }
     maven { url = "https://maven.terraformersmc.com/" }
+    maven { url = "https://maven.kessokuteatime.work/releases" }
 }
 
 dependencies {
@@ -96,12 +97,15 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}")
     compileOnly fg.deobf("dev.emi:emi-forge:${emi_version}:api")
     if (recipe_viewer == "jei")
-        implementation fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
+        runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
     else if (recipe_viewer == "emi")
-        implementation fg.deobf("dev.emi:emi-forge:${emi_version}")
+        runtimeOnly fg.deobf("dev.emi:emi-forge:${emi_version}")
     else
         throw new IllegalArgumentException("Unknown recipe viewer: " + recipe_viewer)
 
+    runtimeOnly fg.deobf("maven.modrinth:jupiter:ZmYt4jjp")
+    runtimeOnly fg.deobf("com.iafenvoy.integration:integration-forge:0.2")
+    runtimeOnly fg.deobf("maven.modrinth:tooltips-reforged:xpFeqLCi")
 }
 
 tasks.named('processResources', ProcessResources).configure {

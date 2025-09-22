@@ -3,7 +3,6 @@ package committee.nova.mods.avaritiadelight.registry;
 import committee.nova.mods.avaritiadelight.AvaritiaDelight;
 import committee.nova.mods.avaritiadelight.item.*;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemNameBlockItem;
@@ -13,6 +12,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Supplier;
 
+@SuppressWarnings("unused")
 public final class ADItems {
     public static final DeferredRegister<Item> REGISTRY = DeferredRegister.create(Registries.ITEM, AvaritiaDelight.MOD_ID);
 
@@ -25,17 +25,17 @@ public final class ADItems {
     public static final RegistryObject<Item> CRYSTAL_CABBAGE_SEEDS = register("crystal_cabbage_seeds", () -> new ItemNameBlockItem(ADBlocks.CRYSTAL_CABBAGE.get(), new Item.Properties()));
     public static final RegistryObject<Item> NEUTRONIUM_WHEAT_SEEDS = register("neutronium_wheat_seeds", () -> new ItemNameBlockItem(ADBlocks.NEUTRONIUM_WHEAT.get(), new Item.Properties()));
 
-    public static final RegistryObject<Item> BLAZE_TOMATO = register("blaze_tomato", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(8).saturationMod(0.6F).build())));
-    public static final RegistryObject<Item> CRYSTAL_CABBAGE = register("crystal_cabbage", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(8).saturationMod(0.6F).build())));
+    public static final RegistryObject<Item> BLAZE_TOMATO = register("blaze_tomato", () -> new Item(new Item.Properties().food(ADFoods.BLAZE_TOMATO)));
+    public static final RegistryObject<Item> CRYSTAL_CABBAGE = register("crystal_cabbage", () -> new Item(new Item.Properties().food(ADFoods.CRYSTAL_CABBAGE)));
     public static final RegistryObject<Item> NEUTRONIUM_WHEAT = register("neutronium_wheat", () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> BLAZE_TOMATO_SAUCE = register("blaze_tomato_sauce", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(16).saturationMod(1.2F).build())));
+    public static final RegistryObject<Item> BLAZE_TOMATO_SAUCE = register("blaze_tomato_sauce", () -> new Item(new Item.Properties().food(ADFoods.BLAZE_TOMATO_SAUCE)));
     public static final RegistryObject<Item> COSMIC_BEEF = register("cosmic_beef", () -> new Item(new Item.Properties().food(Foods.COOKED_CHICKEN)));
     public static final RegistryObject<Item> COSMIC_BEEF_COOKED = register("cosmic_beef_cooked", () -> new Item(new Item.Properties().food(Foods.BEEF)));
-    public static final RegistryObject<Item> CRYSTAL_CABBAGE_LEAF = register("crystal_cabbage_leaf", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationMod(0.3F).build())));
+    public static final RegistryObject<Item> CRYSTAL_CABBAGE_LEAF = register("crystal_cabbage_leaf", () -> new Item(new Item.Properties().food(ADFoods.CRYSTAL_CABBAGE_LEAF)));
     public static final RegistryObject<Item> RAW_CRYSTAL_PASTA = register("raw_crystal_pasta", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> DIAMOND_LATTICE_FRIES = register("diamond_lattice_fries", () -> new Item(new Item.Properties().food(Foods.BAKED_POTATO)));
-    public static final RegistryObject<Item> INFINITY_APPLE = register("infinity_apple", InfinityAppleItem::new);
+    public static final RegistryObject<Item> INFINITY_APPLE = register("infinity_apple", () -> new Item(new Item.Properties().food(ADFoods.INFINITY_APPLE)));
     public static final RegistryObject<Item> INFINITY_LARGE_HAMBURGER = register("infinity_large_hamburger", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> INFINITY_TACO = register("infinity_taco", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> NEUTRONIUM_POT = register("neutronium_pot", () -> new Item(new Item.Properties()));
@@ -66,7 +66,7 @@ public final class ADItems {
 
     public static <T extends Item> RegistryObject<T> register(String id, Supplier<T> supplier) {
         RegistryObject<T> r = REGISTRY.register(id, supplier);
-        ADItemGroups.ITEMS.add(r);
+        ADCreativeModeTabs.ITEMS.add(r);
         return r;
     }
 }

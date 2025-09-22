@@ -100,7 +100,7 @@ public class InfinityCabinetBlockEntity extends BlockEntity implements MenuProvi
     }
 
     @Override
-    public boolean stillValid(Player player) {
+    public boolean stillValid(@NotNull Player player) {
         return Container.stillValidBlockEntity(this, player);
     }
 

@@ -1,15 +1,15 @@
 package committee.nova.mods.avaritiadelight.registry;
 
 import com.google.common.base.Suppliers;
-import java.util.function.Supplier;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import committee.nova.mods.avaritia.init.registry.ModItems;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.function.Supplier;
+
 public enum ADToolMaterials implements Tier {
-    INFINITY_KNIFE(32, 9999, 9999.0F, 10.0F, 0, () -> Ingredient.of(BuiltInRegistries.ITEM.get(ResourceLocation.tryBuild("avaritia", "infinity_ingot"))));
+    INFINITY_KNIFE(32, 9999, 9999.0F, 10.0F, 0, () -> Ingredient.of(ModItems.infinity_ingot.get()));
     private final int level;
     private final int uses;
     private final float speed;

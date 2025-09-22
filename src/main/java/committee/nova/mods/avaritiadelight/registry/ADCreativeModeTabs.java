@@ -13,7 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Supplier;
 
-public final class ADItemGroups {
+public final class ADCreativeModeTabs {
     public static final DeferredRegister<CreativeModeTab> REGISTRY = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, AvaritiaDelight.MOD_ID);
 
     public static final List<RegistryObject<? extends Item>> ITEMS = new LinkedList<>();

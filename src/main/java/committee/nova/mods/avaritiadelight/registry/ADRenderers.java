@@ -17,7 +17,7 @@ public final class ADRenderers {
         BlockEntityRenderers.register(ADBlockEntities.EXTREME_STOVE.get(), ExtremeStoveBlockEntityRenderer::new);
     }
 
-    @SuppressWarnings("removal")
+    @SuppressWarnings("deprecation")
     public static void registerRenderLayers() {
         ItemBlockRenderTypes.setRenderLayer(ADBlocks.BLAZE_TOMATO.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(ADBlocks.BUDDING_BLAZE_TOMATO.get(), RenderType.cutout());

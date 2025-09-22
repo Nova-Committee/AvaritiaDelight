@@ -72,11 +72,10 @@ public class InventoryHelper {
         if (stack.isEmpty()) return true;
         for (int i = start; i < inventory.getContainerSize(); i++) {
             ItemStack inventoryStack = inventory.getItem(i);
-            if (inventoryStack == null || ItemStack.isSameItemSameTags(inventoryStack, stack)) {
-                if (stack.getMaxStackSize() - (inventoryStack != null ? inventoryStack.getCount() : 0) > 0) {
-                    int countToAdd = Math.min(stack.getCount(), stack.getMaxStackSize() - (inventoryStack != null ? inventoryStack.getCount() : 0));
-                    if (inventoryStack == null) inventory.setItem(i, stack.copy());
-                    else inventoryStack.grow(countToAdd);
+            if (ItemStack.isSameItemSameTags(inventoryStack, stack)) {
+                if (stack.getMaxStackSize() - inventoryStack.getCount() > 0) {
+                    int countToAdd = Math.min(stack.getCount(), stack.getMaxStackSize() - inventoryStack.getCount());
+                    inventoryStack.grow(countToAdd);
                     stack.shrink(countToAdd);
                     if (stack.getCount() == 0) return true;
                 }

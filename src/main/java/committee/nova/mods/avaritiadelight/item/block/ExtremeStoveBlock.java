@@ -7,7 +7,6 @@ import committee.nova.mods.avaritiadelight.registry.ADItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -32,8 +31,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.block.StoveBlock;
+import vectorwing.farmersdelight.common.registry.ModSounds;
 import vectorwing.farmersdelight.common.utility.MathUtils;
 
 import java.util.Optional;
@@ -104,7 +103,7 @@ public class ExtremeStoveBlock extends StoveBlock {
             double y = pos.getY();
             double z = pos.getZ() + 0.5;
             if (rand.nextInt(10) == 0)
-                level.playLocalSound(x, y, z, BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.tryBuild(FarmersDelight.MODID, "block.stove.crackle")), SoundSource.BLOCKS, 1.0F, 1.0F, false);
+                level.playLocalSound(x, y, z, ModSounds.BLOCK_STOVE_CRACKLE.get(), SoundSource.BLOCKS, 1.0F, 1.0F, false);
 
             Direction direction = stateIn.getValue(HorizontalDirectionalBlock.FACING);
             Direction.Axis direction$axis = direction.getAxis();

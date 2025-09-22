@@ -4,8 +4,6 @@ import committee.nova.mods.avaritiadelight.item.block.entity.ExtremeCookingPotBl
 import committee.nova.mods.avaritiadelight.registry.ADBlockEntities;
 import committee.nova.mods.avaritiadelight.util.BlockEntityUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -29,9 +27,9 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.block.CookingPotBlock;
 import vectorwing.farmersdelight.common.block.state.CookingPotSupport;
+import vectorwing.farmersdelight.common.registry.ModSounds;
 import vectorwing.farmersdelight.common.tag.ModTags;
 
 public class ExtremeCookingPotBlock extends CookingPotBlock {
@@ -93,7 +91,7 @@ public class ExtremeCookingPotBlock extends CookingPotBlock {
         BlockEntity tileEntity = level.getBlockEntity(pos);
         if (tileEntity instanceof ExtremeCookingPotBlockEntity cookingPotEntity) {
             if (cookingPotEntity.isHeated()) {
-                SoundEvent boilSound = BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.tryBuild(FarmersDelight.MODID, cookingPotEntity.getMeal().isEmpty() ? "block.cooking_pot.boil" : "block.cooking_pot.boil_soup"));
+                SoundEvent boilSound = (cookingPotEntity.getMeal().isEmpty() ? ModSounds.BLOCK_COOKING_POT_BOIL : ModSounds.BLOCK_COOKING_POT_BOIL_SOUP).get();
                 double x = pos.getX() + 0.5;
                 double y = pos.getY();
                 double z = pos.getZ() + 0.5;

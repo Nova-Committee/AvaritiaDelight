@@ -20,14 +20,13 @@ public final class AvaritiaDelight {
     public static final String MOD_ID = "avaritia_delight";
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    @SuppressWarnings("removal")
     public AvaritiaDelight() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
         ADBlocks.REGISTRY.register(bus);
         ADBlockEntities.REGISTRY.register(bus);
         ADItems.REGISTRY.register(bus);
-        ADItemGroups.REGISTRY.register(bus);
+        ADCreativeModeTabs.REGISTRY.register(bus);
         ADRecipes.TYPE_REGISTRY.register(bus);
         ADRecipes.SERIALIZER_REGISTRY.register(bus);
         ADScreenHandlers.REGISTRY.register(bus);
@@ -40,7 +39,7 @@ public final class AvaritiaDelight {
             Level world = event.getPlayer().level();
             BlockPos pos = event.getPos();
             BlockState state = event.getState();
-            if (world.getBlockState(pos.below()).is(ADBlocks.SOUL_RICH_SOIL_FARMLAND.get()) && state.getBlock() instanceof CropBlock)
+            if (world.getBlockState(pos.below()).is(ADBlocks.SOUL_RICH_SOIL_FARMLAND.get()) && state.getBlock() instanceof CropBlock cropBlock && cropBlock.isMaxAge(state))
                 Block.dropResources(state, world, pos);
         }
     }

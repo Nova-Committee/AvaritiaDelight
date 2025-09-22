@@ -1,9 +1,7 @@
 package committee.nova.mods.avaritiadelight.mixin;
 
-import committee.nova.mods.avaritia.Const;
+import committee.nova.mods.avaritia.init.registry.ModItems;
 import committee.nova.mods.avaritiadelight.registry.ADItems;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -15,10 +13,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
 public class LivingEntityMixin {
-    @SuppressWarnings({"ConstantValue", "deprecation"})
+    @SuppressWarnings("ConstantValue")
     @Inject(method = "eat", at = @At("RETURN"))
     private void onFinishUsingUntimateStew(Level world, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
-        if (stack.is(BuiltInRegistries.ITEM.get(ResourceLocation.tryBuild(Const.MOD_ID, "ultimate_stew"))) && (Object) this instanceof Player player && !player.getAbilities().instabuild)
+        if (stack.is(ModItems.ultimate_stew.get()) && (Object) this instanceof Player player && !player.getAbilities().instabuild)
             player.getInventory().placeItemBackInInventory(new ItemStack(ADItems.NEUTRONIUM_POT.get()));
     }
 }

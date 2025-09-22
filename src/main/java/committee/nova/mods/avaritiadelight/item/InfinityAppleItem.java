@@ -11,11 +11,11 @@ public class InfinityAppleItem extends Item {
     public InfinityAppleItem() {
         super(new Properties().food(new FoodProperties.Builder()
                 .nutrition(4).saturationMod(0.3F)
-                .effect(new MobEffectInstance(MobEffects.SATURATION, DURATION), 1)
-                .effect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, DURATION, 4), 1)
-                .effect(new MobEffectInstance(MobEffects.REGENERATION, DURATION, 4), 1)
-                .effect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, DURATION, 4), 1)
-                .effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, DURATION, 1), 1)
+                .effect(() -> new MobEffectInstance(MobEffects.SATURATION, DURATION), 1)
+                .effect(() -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, DURATION, 4), 1)
+                .effect(() -> new MobEffectInstance(MobEffects.REGENERATION, DURATION, 4), 1)
+                .effect(() -> new MobEffectInstance(MobEffects.DAMAGE_BOOST, DURATION, 4), 1)
+                .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, DURATION, 1), 1)
                 .build()));
     }
 }

@@ -11,12 +11,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Container;
@@ -27,17 +24,16 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.block.CookingPotBlock;
 import vectorwing.farmersdelight.common.block.entity.CookingPotBlockEntity;
 import vectorwing.farmersdelight.common.block.entity.HeatableBlockEntity;
 import vectorwing.farmersdelight.common.block.entity.SyncedBlockEntity;
+import vectorwing.farmersdelight.common.registry.ModParticleTypes;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
 
 import java.util.Optional;
@@ -49,8 +45,8 @@ public class ExtremeCookingPotBlockEntity extends SyncedBlockEntity implements M
     private Component customName;
     private int cookTime;
     private int cookTimeTotal;
-    @Nullable
-    private ItemStack mealContainerStack;
+    @NotNull
+    private ItemStack mealContainerStack = ItemStack.EMPTY;
     private final ContainerData cookingProgress = new ContainerData() {
         @Override
         public int get(int index) {
@@ -102,7 +98,7 @@ public class ExtremeCookingPotBlockEntity extends SyncedBlockEntity implements M
             nbt.putString("CustomName", Component.Serializer.toJson(this.customName));
         nbt.putInt("cookTime", this.cookTime);
         nbt.putInt("cookTimeTotal", this.cookTimeTotal);
-        if (this.mealContainerStack != null)
+        if (!this.mealContainerStack.isEmpty())
             nbt.put("mealContainerStack", this.mealContainerStack.save(new CompoundTag()));
     }
 
@@ -135,7 +131,7 @@ public class ExtremeCookingPotBlockEntity extends SyncedBlockEntity implements M
     }
 
     @Override
-    public boolean stillValid(Player player) {
+    public boolean stillValid(@NotNull Player player) {
         return Container.stillValidBlockEntity(this, player);
     }
 
@@ -237,8 +233,8 @@ public class ExtremeCookingPotBlockEntity extends SyncedBlockEntity implements M
 
                 for (int i = 0; i < 81; ++i) {
                     ItemStack slotStack = this.getItem(i);
-                    Item remainder = slotStack.getItem().getCraftingRemainingItem();
-                    if (remainder != null) this.ejectIngredientRemainder(remainder.getDefaultInstance());
+                    ItemStack remainder = slotStack.getCraftingRemainingItem();
+                    if (remainder != null) this.ejectIngredientRemainder(remainder);
                     else if (CookingPotBlockEntity.INGREDIENT_REMAINDER_OVERRIDES.containsKey(slotStack.getItem()))
                         this.ejectIngredientRemainder(CookingPotBlockEntity.INGREDIENT_REMAINDER_OVERRIDES.get(slotStack.getItem()).getDefaultInstance());
                     if (!slotStack.isEmpty())
@@ -282,13 +278,11 @@ public class ExtremeCookingPotBlockEntity extends SyncedBlockEntity implements M
     }
 
     private boolean doesMealHaveContainer(ItemStack meal) {
-        assert this.mealContainerStack != null;
-        return !this.mealContainerStack.isEmpty() || meal.getItem().hasCraftingRemainingItem();
+        return !this.mealContainerStack.isEmpty() || meal.hasCraftingRemainingItem();
     }
 
     public boolean isContainerValid(ItemStack containerItem) {
         if (containerItem.isEmpty()) return false;
-        assert this.mealContainerStack != null;
         return !this.mealContainerStack.isEmpty() ? ItemStack.isSameItem(this.mealContainerStack, containerItem) : ItemStack.isSameItem(this.getMeal(), containerItem);
     }
 
@@ -318,7 +312,7 @@ public class ExtremeCookingPotBlockEntity extends SyncedBlockEntity implements M
                 y = (double) pos.getY() + 0.5;
                 z = (double) pos.getZ() + 0.5 + (random.nextDouble() * 0.4 - 0.2);
                 double motionY = random.nextBoolean() ? 0.015 : 0.005;
-                level.addParticle((SimpleParticleType) BuiltInRegistries.PARTICLE_TYPE.get(ResourceLocation.tryBuild(FarmersDelight.MODID, "steam")), x, y, z, 0.0, motionY, 0.0);
+                level.addParticle(ModParticleTypes.STEAM.get(), x, y, z, 0.0, motionY, 0.0);
             }
         }
     }

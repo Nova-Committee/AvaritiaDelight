@@ -6,9 +6,6 @@ import com.google.gson.JsonSyntaxException;
 import committee.nova.mods.avaritiadelight.AvaritiaDelight;
 import committee.nova.mods.avaritiadelight.mixin.ShapedRecipeAccessor;
 import committee.nova.mods.avaritiadelight.registry.ADBlocks;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.Map;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
@@ -21,6 +18,9 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Map;
 
 public class ExtremeCookingPotShapedRecipe implements ExtremeCookingPotRecipe {
     public static final ResourceLocation ID = ResourceLocation.tryBuild(AvaritiaDelight.MOD_ID, "extreme_cooking_shaped");
@@ -41,8 +41,8 @@ public class ExtremeCookingPotShapedRecipe implements ExtremeCookingPotRecipe {
         this.output = output;
         if (!container.isEmpty())
             this.container = container;
-        else if (output.getItem().getCraftingRemainingItem() != null)
-            this.container = output.getItem().getCraftingRemainingItem().getDefaultInstance();
+        else if (output.hasCraftingRemainingItem())
+            this.container = output.getCraftingRemainingItem();
         else
             this.container = ItemStack.EMPTY;
         this.cookTime = cookTime;
