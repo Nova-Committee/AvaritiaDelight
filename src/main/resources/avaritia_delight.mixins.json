@@ -8,7 +8,7 @@
   ],
   "mixins": [
     "CuttingBoardBlockEntityMixin",
-    "ItemMixin",
+    "LivingEntityMixin",
     "ShapedRecipeAccessor"
   ],
   "injectors": {
