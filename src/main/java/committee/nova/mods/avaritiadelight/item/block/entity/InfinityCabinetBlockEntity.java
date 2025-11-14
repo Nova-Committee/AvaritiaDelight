@@ -2,7 +2,7 @@ package committee.nova.mods.avaritiadelight.item.block.entity;
 
 import committee.nova.mods.avaritiadelight.AvaritiaDelight;
 import committee.nova.mods.avaritiadelight.registry.ADBlockEntities;
-import committee.nova.mods.avaritiadelight.screen.handler.InfinityCabinetScreenHandler;
+import committee.nova.mods.avaritiadelight.screen.handler.InfinityContainerScreenHandler;
 import committee.nova.mods.avaritiadelight.util.ImplementedInventory;
 import committee.nova.mods.avaritiadelight.util.InventoryHelper;
 import net.minecraft.core.BlockPos;
@@ -55,7 +55,7 @@ public class InfinityCabinetBlockEntity extends BlockEntity implements MenuProvi
 
             @Override
             protected boolean isOwnContainer(@NotNull Player player) {
-                return player.containerMenu instanceof InfinityCabinetScreenHandler handler && handler.getInventory() == InfinityCabinetBlockEntity.this;
+                return player.containerMenu instanceof InfinityContainerScreenHandler handler && handler.getInventory() == InfinityCabinetBlockEntity.this;
             }
         };
     }
@@ -77,7 +77,7 @@ public class InfinityCabinetBlockEntity extends BlockEntity implements MenuProvi
 
     @Override
     public @NotNull Component getName() {
-        return this.customName;
+        return this.getDisplayName();
     }
 
     @Override
@@ -87,7 +87,7 @@ public class InfinityCabinetBlockEntity extends BlockEntity implements MenuProvi
 
     @Override
     public @Nullable AbstractContainerMenu createMenu(int syncId, @NotNull Inventory playerInventory, @NotNull Player player) {
-        return new InfinityCabinetScreenHandler(syncId, this, playerInventory);
+        return new InfinityContainerScreenHandler(syncId, this, playerInventory);
     }
 
     @Override

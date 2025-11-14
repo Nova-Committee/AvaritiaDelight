@@ -40,7 +40,7 @@ public final class ADBlocks {
     public static final RegistryObject<Block> STAR_PIE = register("star_pie", () -> new PieBlock(BlockBehaviour.Properties.copy(Blocks.CAKE), ADItems.SLICE_OF_STAR_PIE));
 
     public static final RegistryObject<Block> EXTREME_SKILLET = register("extreme_skillet", () -> new SkilletBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(0.5F, 6.0F).sound(SoundType.LANTERN)));
-    public static final RegistryObject<Block> INFINITY_BASKET = register("infinity_basket", () -> new BasketBlock(BlockBehaviour.Properties.of().strength(1.5F).sound(SoundType.BAMBOO_WOOD)));
+    public static final RegistryObject<Block> INFINITY_BASKET = register("infinity_basket", () -> new InfinityBasketBlock(BlockBehaviour.Properties.of().strength(1.5F).sound(SoundType.BAMBOO_WOOD)));
     public static final RegistryObject<Block> CROP_EXTRACTOR = register("crop_extractor", () -> new CropExtractorBlock(BlockBehaviour.Properties.of()));
 
     public static final RegistryObject<Block> BLAZE_TOMATO_CRATE = register("blaze_tomato_crate", () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));

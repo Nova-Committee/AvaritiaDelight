@@ -1,7 +1,7 @@
 package committee.nova.mods.avaritiadelight.screen.gui;
 
 import committee.nova.mods.avaritiadelight.AvaritiaDelight;
-import committee.nova.mods.avaritiadelight.screen.handler.InfinityCabinetScreenHandler;
+import committee.nova.mods.avaritiadelight.screen.handler.InfinityContainerScreenHandler;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
@@ -9,10 +9,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import org.jetbrains.annotations.NotNull;
 
-public class InfinityCabinetScreen extends AbstractContainerScreen<InfinityCabinetScreenHandler> {
+public class InfinityContainerScreen extends AbstractContainerScreen<InfinityContainerScreenHandler> {
     private static final ResourceLocation TEXTURE = ResourceLocation.tryBuild(AvaritiaDelight.MOD_ID, "textures/gui/infinity_cabinet.png");
 
-    public InfinityCabinetScreen(InfinityCabinetScreenHandler handler, Inventory inventory, Component title) {
+    public InfinityContainerScreen(InfinityContainerScreenHandler handler, Inventory inventory, Component title) {
         super(handler, inventory, title);
         this.imageWidth = 499;
         this.imageHeight = 275;

@@ -3,7 +3,7 @@ package committee.nova.mods.avaritiadelight.registry;
 import committee.nova.mods.avaritiadelight.AvaritiaDelight;
 import committee.nova.mods.avaritiadelight.screen.handler.CropExtractorScreenHandler;
 import committee.nova.mods.avaritiadelight.screen.handler.ExtremeCookingPotScreenHandler;
-import committee.nova.mods.avaritiadelight.screen.handler.InfinityCabinetScreenHandler;
+import committee.nova.mods.avaritiadelight.screen.handler.InfinityContainerScreenHandler;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.flag.FeatureFlags;
@@ -19,7 +19,7 @@ public final class ADScreenHandlers {
     public static final DeferredRegister<MenuType<?>> REGISTRY = DeferredRegister.create(Registries.MENU, AvaritiaDelight.MOD_ID);
 
     public static final RegistryObject<MenuType<ExtremeCookingPotScreenHandler>> EXTREME_COOKING_POT = register("extreme_cooking_pot", () -> IForgeMenuType.create(ExtremeCookingPotScreenHandler::new));
-    public static final RegistryObject<MenuType<InfinityCabinetScreenHandler>> INFINITY_CABINET = register("infinity_cabinet", () -> new MenuType<>(InfinityCabinetScreenHandler::new, FeatureFlagSet.of(FeatureFlags.VANILLA)));
+    public static final RegistryObject<MenuType<InfinityContainerScreenHandler>> INFINITY_CABINET = register("infinity_cabinet", () -> new MenuType<>(InfinityContainerScreenHandler::new, FeatureFlagSet.of(FeatureFlags.VANILLA)));
     public static final RegistryObject<MenuType<CropExtractorScreenHandler>> CROP_EXTRACTOR = register("crop_extractor", () -> new MenuType<>(CropExtractorScreenHandler::new, FeatureFlagSet.of(FeatureFlags.VANILLA)));
 
     public static <T extends AbstractContainerMenu> RegistryObject<MenuType<T>> register(String id, Supplier<MenuType<T>> supplier) {

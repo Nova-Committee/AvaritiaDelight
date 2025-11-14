@@ -128,7 +128,7 @@ public class ExtremeStoveBlockEntity extends SyncedBlockEntity {
                                 this.stacks.set(i, ItemStack.EMPTY);
                                 didInventoryChange = true;
                             }
-                        } else if (this.cookingTimes[i] >= 20) {
+                        } else if (this.cookingTimes[i] >= (lit ? 20 : this.cookingTimesTotal[i])) {
                             Container inventoryWrapper = new SimpleContainer(stoveStack);
                             Optional<CampfireCookingRecipe> recipe = this.getMatchingRecipe(inventoryWrapper, i);
                             if (recipe.isPresent()) {

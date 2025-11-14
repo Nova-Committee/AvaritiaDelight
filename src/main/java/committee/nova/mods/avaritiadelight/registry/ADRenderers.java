@@ -3,7 +3,7 @@ package committee.nova.mods.avaritiadelight.registry;
 import committee.nova.mods.avaritiadelight.render.ExtremeStoveBlockEntityRenderer;
 import committee.nova.mods.avaritiadelight.screen.gui.CropExtractorScreen;
 import committee.nova.mods.avaritiadelight.screen.gui.ExtremeCookingPotScreen;
-import committee.nova.mods.avaritiadelight.screen.gui.InfinityCabinetScreen;
+import committee.nova.mods.avaritiadelight.screen.gui.InfinityContainerScreen;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -28,7 +28,7 @@ public final class ADRenderers {
 
     public static void registerScreenFactories() {
         MenuScreens.register(ADScreenHandlers.EXTREME_COOKING_POT.get(), ExtremeCookingPotScreen::new);
-        MenuScreens.register(ADScreenHandlers.INFINITY_CABINET.get(), InfinityCabinetScreen::new);
+        MenuScreens.register(ADScreenHandlers.INFINITY_CABINET.get(), InfinityContainerScreen::new);
         MenuScreens.register(ADScreenHandlers.CROP_EXTRACTOR.get(), CropExtractorScreen::new);
     }
 }

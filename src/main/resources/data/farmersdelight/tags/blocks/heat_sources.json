@@ -1,14 +1,10 @@
 {
   "replace": false,
   "values": [
-    {
-      "id": "avaritia:blaze_cube_block",
-      "required": false
-    },
-    {
-      "id": "avaritia:nether_crafting_table",
-      "required": false
-    },
+    "avaritia:refined_coal_block",
+    "avaritia:blaze_cube_block",
+    "avaritia:nether_crafting_table",
+    "avaritia:star_fuel_block",
     "avaritia_delight:extreme_stove"
   ]
 }

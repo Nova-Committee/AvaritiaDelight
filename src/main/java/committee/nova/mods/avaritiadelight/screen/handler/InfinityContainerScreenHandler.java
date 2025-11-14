@@ -11,11 +11,11 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-public class InfinityCabinetScreenHandler extends AbstractContainerMenu {
+public class InfinityContainerScreenHandler extends AbstractContainerMenu {
     private final Container inventory;
     private final Inventory playerInventory;
 
-    public InfinityCabinetScreenHandler(int syncId, Inventory playerInventory) {
+    public InfinityContainerScreenHandler(int syncId, Inventory playerInventory) {
         this(syncId, new SimpleContainer(243) {
             @Override
             public int getMaxStackSize() {
@@ -24,7 +24,7 @@ public class InfinityCabinetScreenHandler extends AbstractContainerMenu {
         }, playerInventory);
     }
 
-    public InfinityCabinetScreenHandler(int syncId, Container inventory, Inventory playerInventory) {
+    public InfinityContainerScreenHandler(int syncId, Container inventory, Inventory playerInventory) {
         super(ADScreenHandlers.INFINITY_CABINET.get(), syncId);
         checkContainerSize(inventory, 243);
         this.inventory = inventory;
